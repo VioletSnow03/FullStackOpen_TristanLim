@@ -1,0 +1,1 @@
+The author is taking the Full Stack Open course. Exercises completed by the author will be stored here for viewing.
