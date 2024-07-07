@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 const App = () => {
   const course = {
     name: 'Half Stack application development',
@@ -16,12 +18,19 @@ const App = () => {
       }
     ]
   } 
+  const [ counter, setCounter ] = useState(0)
+
+  console.log('rendering...', counter)
 
   return (
     <div>
       <Header course={course.name}/>
       <Content parts={course.parts} />
       <Total parts={course.parts}/>
+      <h1>{counter}</h1>
+      <button onClick={() => setCounter(counter + 1)}>
+        plus
+      </button>
     </div>
   )
 }
