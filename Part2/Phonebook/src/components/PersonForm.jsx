@@ -7,22 +7,11 @@ const PersonForm = ({
   newNumber,
   setNewNumber,
   handleNumberChange,
+  addName,
 }) => {
   const nameExists = (name) => nameLowerCaseList.includes(name.toLowerCase());
 
   const nameLowerCaseList = persons.map((person) => person.name.toLowerCase());
-
-  const addName = (event) => {
-    event.preventDefault();
-    if (nameExists(newName)) {
-      window.alert(`${newName} is already added to the phonebook`);
-    } else {
-      const personObject = { name: newName, number: newNumber };
-      setPersons(persons.concat(personObject));
-      setNewName("");
-      setNewNumber("");
-    }
-  };
 
   return (
     <form onSubmit={addName}>
