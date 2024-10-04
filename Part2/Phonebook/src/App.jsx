@@ -1,15 +1,19 @@
+import "./global.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import personService from "./services/persons";
 import Persons from "./components/Persons";
 import PersonForm from "./components/PersonForm";
 import Filter from "./components/Filter";
+import Notification from "./components/Notification";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [newFilter, setNewFilter] = useState("");
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
 
   useEffect(() => {
     personService.getAll().then((initialPersons) => {
@@ -45,6 +49,18 @@ const App = () => {
             );
             setNewName("");
             setNewNumber("");
+            setSuccessMessage(`Changed the number of ${returnedPerson.name}`);
+            setTimeout(() => {
+              setSuccessMessage(null);
+            }, 5000);
+          })
+          .catch((error) => {
+            setErrorMessage(
+              `Information of ${newName} has already been removed from the server`
+            );
+            setTimeout(() => {
+              setErrorMessage(null);
+            }, 5000);
           });
       }
     } else {
@@ -53,6 +69,10 @@ const App = () => {
         setPersons(persons.concat(returnedPerson));
         setNewName("");
         setNewNumber("");
+        setSuccessMessage(`Added ${returnedPerson.name}`);
+        setTimeout(() => {
+          setSuccessMessage(null);
+        }, 5000);
       });
     }
   };
@@ -81,10 +101,22 @@ const App = () => {
   };
 
   return (
-    <div>
-      <h2>Phonebook</h2>
+    <div className="w-full h-full flex flex-col items-center">
+      <h2 className="font-extrabold text-3xl">Phonebook</h2>
+      <Notification
+        message={successMessage}
+        className={
+          "font-bold px-4 py-2 bg-green-100 border-green-500 border-2 rounded-lg"
+        }
+      />
+      <Notification
+        message={errorMessage}
+        className={
+          "font-bold px-4 py-2 bg-red-100 border-red-500 border-2 rounded-lg"
+        }
+      />
       <Filter newFilter={newFilter} handleFilterChange={handleFilterChange} />
-      <h3>Add a New</h3>
+      <h3 className="font-bold">Add a New</h3>
       <PersonForm
         persons={persons}
         setPersons={setPersons}
@@ -96,7 +128,7 @@ const App = () => {
         handleNumberChange={handleNumberChange}
         addName={addName}
       />
-      <h3>Numbers</h3>
+      <h3 className="font-bold">Numbers</h3>
       <Persons
         persons={persons}
         newFilter={newFilter}

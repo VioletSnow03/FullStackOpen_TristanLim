@@ -9,12 +9,11 @@ const PersonForm = ({
   handleNumberChange,
   addName,
 }) => {
-  const nameExists = (name) => nameLowerCaseList.includes(name.toLowerCase());
-
-  const nameLowerCaseList = persons.map((person) => person.name.toLowerCase());
-
   return (
-    <form onSubmit={addName}>
+    <form
+      className="flex flex-col aspect-square items-center gap-4 p-12 border border-slate-200 my-16 rounded-lg shadow-md"
+      onSubmit={addName}
+    >
       <div>
         name: <input value={newName} onChange={handleNameChange} />
       </div>
@@ -22,7 +21,12 @@ const PersonForm = ({
         number: <input value={newNumber} onChange={handleNumberChange} />
       </div>
       <div>
-        <button type="submit">add</button>
+        <button
+          type="submit"
+          className="px-4 py-2 rounded-md bg-blue-300 hover:bg-blue-600 transition-colors"
+        >
+          add
+        </button>
       </div>
     </form>
   );
