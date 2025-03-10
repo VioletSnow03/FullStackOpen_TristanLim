@@ -11,21 +11,21 @@ const PersonForm = ({
 }) => {
   return (
     <form
-      className="flex flex-col aspect-square items-center gap-4 p-12 border border-slate-200 my-16 rounded-lg shadow-md"
+      className="flex flex-col items-center gap-4 p-12 border border-slate-400 rounded-lg bg-slate-50"
       onSubmit={addName}
     >
-      <div>
+      <div className="text-slate-600 font-semibold">
         name: <input value={newName} onChange={handleNameChange} />
       </div>
-      <div>
+      <div className="text-slate-600 font-semibold">
         number: <input value={newNumber} onChange={handleNumberChange} />
       </div>
       <div>
         <button
           type="submit"
-          className="px-4 py-2 rounded-md bg-blue-300 hover:bg-blue-600 transition-colors"
+          className="px-8 py-2 rounded-md bg-indigo-600 text-slate-100 hover:bg-indigo-700 transition-colors"
         >
-          add
+          Add
         </button>
       </div>
     </form>

@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 input {
-  @apply border border-slate-400 rounded-sm shadow-sm px-4 py-2;
+  @apply border border-slate-400 rounded-md shadow-sm px-4 py-2;
 }

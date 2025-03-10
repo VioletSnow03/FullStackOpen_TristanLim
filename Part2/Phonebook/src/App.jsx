@@ -93,16 +93,17 @@ const App = () => {
     if (window.confirm(`Delete ${persons.find((p) => p.id === id).name}?`)) {
       console.log(`To delete: Person with id ${id}`);
       personService.remove(id).then((returnedRemoval) => {
-        setPersons(
-          persons.filter((person) => person.id !== returnedRemoval.id)
-        );
+        console.log(returnedRemoval);
+        setPersons(persons.filter((person) => person.id !== id));
       });
     }
   };
 
   return (
-    <div className="w-full h-full flex flex-col items-center">
-      <h2 className="font-extrabold text-3xl">Phonebook</h2>
+    <div className="w-full h-full flex flex-col items-center bg-slate-100">
+      <h2 className="font-semibold text-3xl py-8 text-fuchsia-950">
+        Phonebook
+      </h2>
       <Notification
         message={successMessage}
         className={
@@ -115,25 +116,31 @@ const App = () => {
           "font-bold px-4 py-2 bg-red-100 border-red-500 border-2 rounded-lg"
         }
       />
-      <Filter newFilter={newFilter} handleFilterChange={handleFilterChange} />
-      <h3 className="font-bold">Add a New</h3>
-      <PersonForm
-        persons={persons}
-        setPersons={setPersons}
-        newName={newName}
-        setNewName={setNewName}
-        handleNameChange={handleNameChange}
-        newNumber={newNumber}
-        setNewNumber={setNewNumber}
-        handleNumberChange={handleNumberChange}
-        addName={addName}
-      />
-      <h3 className="font-bold">Numbers</h3>
-      <Persons
-        persons={persons}
-        newFilter={newFilter}
-        deletePersonOfId={deletePersonOfId}
-      />
+      <div className="flex space-x-9">
+        <PersonForm
+          persons={persons}
+          setPersons={setPersons}
+          newName={newName}
+          setNewName={setNewName}
+          handleNameChange={handleNameChange}
+          newNumber={newNumber}
+          setNewNumber={setNewNumber}
+          handleNumberChange={handleNumberChange}
+          addName={addName}
+        />
+        <div className="flex flex-col gap-4">
+          <h3 className="font-bold text-slate-600">Numbers</h3>
+          <Filter
+            newFilter={newFilter}
+            handleFilterChange={handleFilterChange}
+          />
+          <Persons
+            persons={persons}
+            newFilter={newFilter}
+            deletePersonOfId={deletePersonOfId}
+          />
+        </div>
+      </div>
     </div>
   );
 };
